@@ -30,18 +30,18 @@ export const CardWrapper = ({
       <CardHeader>
         <Header label={headerLabel} />
       </CardHeader>
+
+      <CardContent>
+        {children}
+      </CardContent>
+      <div className='mx-auto my-5 flex w-[80%] items-center justify-evenly before:mr-4 before:block before:h-px before:grow before:bg-stone-400 after:ml-4 after:block after:h-px after:grow after:bg-stone-400'>
+        or
+      </div>
       {showSocial && (
         <CardFooter>
           <Social />
         </CardFooter>
       )}
-      <div className='mx-auto my-5 flex w-[80%] items-center justify-evenly before:mr-4 before:block before:h-px before:grow before:bg-stone-400 after:ml-4 after:block after:h-px after:grow after:bg-stone-400'>
-        or
-      </div>
-      <CardContent>
-        {children}
-      </CardContent>
-
       <CardFooter>
         <BackButton
           label={backButtonLabel}

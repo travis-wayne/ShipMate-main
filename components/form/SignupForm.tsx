@@ -28,7 +28,9 @@ const SignInForm = () => {
     defaultValues: {
       email: "",
       password: "",
-      name: "",
+      cpassword: "",
+      fname: "",
+      lname: "",
     },
   });
 
@@ -53,14 +55,30 @@ const SignInForm = () => {
           <div className="space-y-4">
             <FormField
               control={form.control}
-              name="name"
+              name="fname"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Name</FormLabel>
+                  <FormLabel>First name</FormLabel>
                   <FormControl>
                     <Input
                       {...field}
-                      placeholder="John Doe"
+                      placeholder="John"
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="lname"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Last name</FormLabel>
+                  <FormControl>
+                    <Input
+                      {...field}
+                      placeholder="Doe"
                     />
                   </FormControl>
                   <FormMessage />
@@ -90,6 +108,23 @@ const SignInForm = () => {
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Password</FormLabel>
+                  <FormControl>
+                    <Input
+                      {...field}
+                      placeholder="******"
+                      type="password"
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="cpassword"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Confrim Password</FormLabel>
                   <FormControl>
                     <Input
                       {...field}
