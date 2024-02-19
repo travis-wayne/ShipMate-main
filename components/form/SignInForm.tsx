@@ -21,8 +21,11 @@ import { CardWrapper } from "@/components/form/card-wrapper"
 import { Button } from "@/components/ui/button";
 import { FormError } from "@/components/form-error";
 import { FormSuccess } from "@/components/form-success";
+import axios from "axios";
+import { validate } from "uuid";
 
-const SignInForm = () => {
+
+const SigninForm = () => {
   const form = useForm<z.infer<typeof LoginSchema>>({
     resolver: zodResolver(LoginSchema),
     defaultValues: {
@@ -31,8 +34,27 @@ const SignInForm = () => {
     },
   });
 
-  const onSubmit = (values: z.infer<typeof LoginSchema>) => {
-    console.log(values);
+  const [isPending, startTransition] = useTransition();
+  const [error, setError] = useState<string | undefined>("");
+  const [success, setSuccess] = useState<string | undefined>("");
+
+  const onSubmit = async (values: z.infer<typeof LoginSchema>) => {
+    setError("");
+    setSuccess("");
+
+    startTransition(() => {
+    //   try {
+    //     console.log(values);
+    // const response = await axios.post('/api/auth/login', values);
+    // console.log('Login successful:', response.data);
+    //   setSuccess('Login successful');
+    // } catch (error) {
+    //   console.error('Login failed:', error.response?.data || error.message);
+    //   setError('Invalid credentials');
+    // }
+
+      console.log(values);
+    });
   };
 
 
@@ -60,6 +82,7 @@ const SignInForm = () => {
                   <FormControl>
                     <Input
                       {...field}
+                      disabled={isPending}
                       placeholder="john.doe@example.com"
                       type="email"
                     />
@@ -69,36 +92,38 @@ const SignInForm = () => {
               )}
             />
             <FormField
-                  control={form.control}
-                  name="password"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Password</FormLabel>
-                      <FormControl>
-                        <Input
-                          {...field}
-                          placeholder="******"
-                          type="password"
-                        />
-                      </FormControl>
-                      <Button
-                        size="sm"
-                        variant="link"
-                        asChild
-                        className="px-0 font-normal"
-                      >
-                        <Link href="/auth/reset-password">
-                          Forgot password?
-                        </Link>
-                      </Button>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
+              control={form.control}
+              name="password"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Password</FormLabel>
+                  <FormControl>
+                    <Input
+                      {...field}
+                      disabled={isPending}
+                      placeholder="******"
+                      type="password"
+                    />
+                  </FormControl>
+                  <Button
+                    size="sm"
+                    variant="link"
+                    asChild
+                    className="px-0 font-normal"
+                  >
+                    <Link href="/auth/reset-password">
+                      Forgot password?
+                    </Link>
+                  </Button>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
           </div>
-          <FormError/>
-          <FormSuccess />
+          <FormError message={error} />
+          <FormSuccess message={success} />
           <Button
+            disabled={isPending}
             type="submit"
             className="w-full"
           >
@@ -110,4 +135,4 @@ const SignInForm = () => {
   );
 };
 
-export default SignInForm;
+export default SigninForm;

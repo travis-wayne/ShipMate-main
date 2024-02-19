@@ -1,14 +1,14 @@
-"use client";
+"use client"
 
-import * as z from "zod";
-import { useForm } from "react-hook-form";
-import { useState, useTransition } from "react";
-import { useSearchParams } from "next/navigation";
-import { zodResolver } from "@hookform/resolvers/zod";
-import Link from "next/link";
+import { useState, useTransition } from "react"
+import Link from "next/link"
+import { useSearchParams } from "next/navigation"
+import { ResetSchema } from "@/schemas"
+import { zodResolver } from "@hookform/resolvers/zod"
+import { useForm } from "react-hook-form"
+import * as z from "zod"
 
-import { ResetSchema } from "@/schemas";
-import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button"
 import {
   Form,
   FormControl,
@@ -16,11 +16,11 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/components/ui/form";
+} from "@/components/ui/form"
+import { Input } from "@/components/ui/input"
+import { FormError } from "@/components/form-error"
+import { FormSuccess } from "@/components/form-success"
 import { CardWrapper } from "@/components/form/card-wrapper"
-import { Button } from "@/components/ui/button";
-import { FormError } from "@/components/form-error";
-import { FormSuccess } from "@/components/form-success";
 
 const ResetForm = () => {
   const form = useForm<z.infer<typeof ResetSchema>>({
@@ -28,13 +28,15 @@ const ResetForm = () => {
     defaultValues: {
       email: "",
     },
-  });
+  })
+
+  const [isPending, startTransition] = useTransition()
 
   const onSubmit = (values: z.infer<typeof ResetSchema>) => {
-    console.log(values);
-  };
-
-
+    startTransition(() => {
+      console.log(values)
+    })
+  }
 
   return (
     <CardWrapper
@@ -43,10 +45,7 @@ const ResetForm = () => {
       backButtonHref="/auth/sign-in"
     >
       <Form {...form}>
-        <form
-          onSubmit={form.handleSubmit(onSubmit)}
-          className="space-y-6"
-        >
+        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
           <div className="space-y-4">
             <FormField
               control={form.control}
@@ -57,6 +56,7 @@ const ResetForm = () => {
                   <FormControl>
                     <Input
                       {...field}
+                      disabled={isPending}
                       placeholder="john.doe@example.com"
                       type="email"
                     />
@@ -69,15 +69,15 @@ const ResetForm = () => {
           <FormError />
           <FormSuccess />
           <Button
+            disabled={isPending}
             type="submit"
-            className="w-full"
-          >
+            className="w-full">
             Send reset email
           </Button>
         </form>
       </Form>
     </CardWrapper>
-  );
-};
+  )
+}
 
-export default ResetForm;
+export default ResetForm

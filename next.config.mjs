@@ -2,8 +2,10 @@
 const nextConfig = {
   reactStrictMode: true,
   experimental: {
+    serverComponents: true,
+    serverComponentsMiddleware: true,
     appDir: true,
   },
 }
 
-export default nextConfig
+export default nextConfig;
