@@ -3,7 +3,6 @@
 import { NewPasswordSchema } from "@/schemas"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
-
 import { BeatLoader } from "react-spinners"
 import * as z from "zod"
 
@@ -12,14 +11,8 @@ import { FormSuccess } from "@/components/form-success"
 import { CardWrapper } from "@/components/form/card-wrapper"
 
 import { Button } from "../ui/button"
-import { useTransition } from "react"
-
-
 
 const SignoutForm = () => {
-
-  const [isPending, startTransition] = useTransition();
-  
   return (
     <CardWrapper
       headerLabel="Are you sure you want to leave?"
@@ -33,7 +26,6 @@ const SignoutForm = () => {
         <FormError />
         <div className="flex w-full items-center gap-x-2">
           <Button
-           disabled={isPending}
             size="lg"
             className="w-full"
             variant="outline"
@@ -42,7 +34,6 @@ const SignoutForm = () => {
             Yes
           </Button>
           <Button
-           disabled={isPending}
             size="lg"
             className="w-full"
           // onClick={() => onClick("github")}

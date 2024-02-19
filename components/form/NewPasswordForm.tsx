@@ -30,12 +30,8 @@ const NewPasswordForm = () => {
     },
   });
 
-  const [isPending, startTransition] = useTransition();
-
   const onSubmit = (values: z.infer<typeof NewPasswordSchema>) => {
-    startTransition(() => {
-      console.log(values);
-    });
+    console.log(values);
   };
 
 
@@ -61,7 +57,6 @@ const NewPasswordForm = () => {
                   <FormControl>
                     <Input
                       {...field}
-                       disabled={isPending}
                       placeholder="**********"
                       type="password"
                     />
@@ -74,7 +69,6 @@ const NewPasswordForm = () => {
           <FormError />
           <FormSuccess />
           <Button
-           disabled={isPending}
             type="submit"
             className="w-full"
           >
